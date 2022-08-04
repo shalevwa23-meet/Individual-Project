@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VaxPaint Home</title>
+	<link rel="stylesheet" href= "{{ url_for('static',filename='css/style.css') }}">
+
+</head>
+<body>
+	<center>
+		<button onclick=window.location.href="{{url_for('sign_out')}}">Sign Out</button>
+		<h1 id="title">{{user['name']}}'s Drawings</h1>
+		<div>
+			<form action="/home", method = "POST" class="gallery" style="display: inline-flex;flex-direction: column;">
+			<button type="button" id="add_drawing_button" class="enter_drawing"><h1 style="font-size: 60px; padding-left: 60px;padding-right: 60px;">+</h1></button>
+			<div id="add_drawing_info">
+				<center>
+					<input type="text" name="drawing_name" placeholder="Drawing Name">
+					<input type="submit" name="submit" value="Open Drawing">
+				</center>
+			</div>
+			</form>
+			{%for i in drawings%}
+				<div style="display: inline-flex; flex-direction: column;" class="gallery">
+					<center>
+						<button class = "enter_drawing" onclick=window.location.href="{{url_for('drawing', user_id = user_id, drawing_name = i)}}">
+							<canvas style="width: 240px; height: 100px;" data-width = "{{drawings[i]['width']}}" data-height = "{{drawings[i]['height']}}"data-data = "{{drawings[i]['data']}}"></canvas>
+							<h2>
+								{{i}}
+							</h2>
+						</button>
+					</center>
+				</div>
+			{%endfor%}
+		</div>	
+		<script src = "../static/script.js"></script>
+	<center>
+</body>
+</html>
