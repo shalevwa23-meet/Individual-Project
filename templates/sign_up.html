@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VaxPaint Sign Up</title>
+		<link rel="stylesheet" href= "{{ url_for('static',filename='css/style.css') }}">
+
+</head>
+<body>
+<center>
+{{a}}
+	<h1 id="title"> Sign Up</h1>
+	<form action="/sign_up", method="POST">
+
+		<input type="text" name="name" placeholder="name">
+		
+		<input type="email" name="email" placeholder="Email Address" required>
+
+		<input type="password" name="password" placeholder="password" required>
+		<br>
+		<input type="submit" name="submit" value="Sign Up">
+
+	</form>
+	<br>
+	<div>
+		<button onclick=window.location.href="{{url_for('sign_in')}}">
+			Sign In
+		</button>
+
+		<button onclick=window.location.href = "#">
+			Enter as a guest
+		</button>
+	</div>
+</center>
+</body>
+</html>
