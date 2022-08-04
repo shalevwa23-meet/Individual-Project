@@ -39,8 +39,8 @@
 
 
 		<div style="background-color: rgba(255,255,255,0.8); display: inline-block;">
-		{%if drawing_name in drawings%}
-			<canvas width="960" height="400" id="canvas" class="prev" data-width = "{{drawings[drawing_name]['width']}}" data-height = "{{drawings[drawing_name]['height']}}"data-data = "{{drawings[drawing_name]['data']}}">
+		{%if not(drawing == "new")%}
+			<canvas width="960" height="400" id="canvas" class="prev" data-width = "{{drawing['width']}}" data-height = "{{drawing['height']}}"data-data = "{{drawing['data']}}">
 			</canvas>
 		{%else%}
 			<canvas width="960" height="400" id="canvas">
@@ -48,7 +48,7 @@
 		{%endif%}
 		</div>
 	</div>
-		<script src = "../../static/draw.js"></script>
+		<script src = "../../static/draw.js" defer></script>
 	</center>
 </body>
 </html>

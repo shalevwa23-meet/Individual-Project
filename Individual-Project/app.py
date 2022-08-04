@@ -65,8 +65,8 @@ def home():
 
 	if request.method == "POST":
 		return redirect(url_for("drawing", user_id=user_id, drawing_name = request.form['drawing_name']))
-	if "Drawings" in db.get().val():
-		if user_id in db.child("Drawings").get().val():
+	if "Drawings" in db.shallow().get().val():
+		if user_id in db.child("Drawings").shallow().get().val():
 			return render_template('home.html', user_id = user_id, drawings = db.child("Drawings").child(user_id).get().val(), user = db.child("Users").child(user_id).get().val())
 	return render_template('home.html', user_id = user_id, user = db.child("Users").child(user_id).get().val())
 
@@ -79,9 +79,10 @@ def drawing(user_id, drawing_name):
 		db.child("Drawings").child(login_session['user']['localId']).child(drawing_name).set({"data":data,"height":height,"width":width})
 		return redirect(url_for('home'))
 	if "Drawings" in db.get().val():
-		if user_id in db.child("Drawings").get().val():
-			return render_template("drawing.html", user_id = user_id, drawing_name = drawing_name, drawings = db.child("Drawings").child(user_id).get().val())
-	return render_template("drawing.html", user_id = user_id, drawing_name = drawing_name)
+		if user_id in db.child("Drawings").shallow().get().val():
+			if drawing_name in db.child("Drawings").child(user_id).shallow().get().val():
+				return render_template("drawing.html", user_id = user_id, drawing_name = drawing_name, drawing = db.child("Drawings").child(user_id).child(drawing_name).get().val())
+	return render_template("drawing.html", user_id = user_id, drawing_name = drawing_name, drawing = "new")
 @app.route('/sign_out')
 def sign_out():
 	login_session['user'] = None

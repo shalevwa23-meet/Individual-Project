@@ -28,6 +28,9 @@ function undo()
 {
 	if(cur_img >= 0)
 	{
+		console.log(cur_img)
+		console.log(saved)
+		console.log(saved[cur_img-1])
 		// console.log(saved[cur_img-1].data);
 		ctx.putImageData(saved[cur_img-1], 0, 0);
 		cur_img--;
@@ -63,6 +66,13 @@ function save()
 		cur_img--;
 		saved.splice(0,1)
 	}
+	
+
+
+}
+
+document.getElementById('save').addEventListener("click", function(){
+	save();
 	pic_info.set('data', saved[cur_img].data);
 	// alert(saved[cur_img].data.length)
 	pic_info.set('height', saved[cur_img].height);
@@ -70,12 +80,6 @@ function save()
 	const XHR = new XMLHttpRequest();
 	XHR.open('POST', window.location.href);
 	XHR.send(pic_info);
-
-
-}
-
-document.getElementById('save').addEventListener("click", function(){
-	save();
 })
 
 
@@ -138,5 +142,6 @@ canvas.addEventListener("mousedown", function(event){
 canvas.addEventListener("mouseup", function(event){
 
 	is_drawing = false;
+	save()
 
 })
